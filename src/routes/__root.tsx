@@ -79,14 +79,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ResuMate — AI Resume Analyzer & ATS Score" },
+      { title: "Resume AI — AI Resume Analyzer & ATS Score" },
       {
         name: "description",
         content:
           "Upload your resume, get an instant ATS score, keyword match against any job description, and AI-powered rewrites.",
       },
-      { name: "author", content: "ResuMate" },
-      { property: "og:title", content: "ResuMate — AI Resume Analyzer & ATS Score" },
+      { name: "author", content: "Resume AI" },
+      { property: "og:title", content: "Resume AI — AI Resume Analyzer & ATS Score" },
       {
         property: "og:description",
         content:
@@ -98,6 +98,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "apple-touch-icon", href: "/favicon.ico" },
+      { rel: "manifest", href: "/site.webmanifest" },
+      { name: "theme-color", content: "#0a0a0f" },
+      { name: "application-name", content: "Resume AI" },
+      { name: "apple-mobile-web-app-title", content: "Resume AI" },
+      { name: "msapplication-TileColor", content: "#0a0a0f" },
+      { name: "msapplication-config", content: "/browserconfig.xml" },
       {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",

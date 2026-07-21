@@ -55,7 +55,7 @@ function AuthLayout() {
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-fuchsia-500 to-indigo-500 grid place-items-center">
               <Sparkles className="h-4 w-4" />
             </div>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif" }}>ResuMate</span>
+            <span style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Resume AI</span>
           </Link>
           <nav className="hidden md:flex items-center gap-1 text-sm text-white/60 overflow-x-auto">
             {NAV.map((item) => (

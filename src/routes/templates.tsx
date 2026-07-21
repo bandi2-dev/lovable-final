@@ -6,9 +6,9 @@ export const Route = createFileRoute("/templates")({
   component: TemplatesPage,
   head: () => ({
     meta: [
-      { title: "Templates — ResuMate" },
+      { title: "Templates — Resume AI" },
       { name: "description", content: "Battle-tested resume templates for FAANG, startups, consulting, and academia." },
-      { property: "og:title", content: "Templates — ResuMate" },
+      { property: "og:title", content: "Templates — Resume AI" },
     ],
   }),
 });

@@ -6,9 +6,9 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About — ResuMate" },
-      { name: "description", content: "ResuMate is an MTech major project — an open, local-first AI resume analyzer." },
-      { property: "og:title", content: "About — ResuMate" },
+      { title: "About — Resume AI" },
+      { name: "description", content: "Resume AI is an MTech major project — an open, local-first AI resume analyzer." },
+      { property: "og:title", content: "About — Resume AI" },
     ],
   }),
 });
@@ -28,7 +28,7 @@ function AboutPage() {
         </motion.h1>
         <div className="mt-10 space-y-6 text-white/70 leading-relaxed">
           <p>
-            ResuMate started as an MTech major project — an experiment in what a modern,
+            Resume AI started as an MTech major project — an experiment in what a modern,
             local-first resume tool could look like when you strip out the tracking,
             the paywalls, and the black-box "AI magic".
           </p>

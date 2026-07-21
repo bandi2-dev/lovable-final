@@ -6,9 +6,9 @@ export const Route = createFileRoute("/features")({
   component: FeaturesPage,
   head: () => ({
     meta: [
-      { title: "Features — ResuMate" },
-      { name: "description", content: "Everything ResuMate does: ATS scoring, JD matching, AI rewrites, templates, and interview prep." },
-      { property: "og:title", content: "Features — ResuMate" },
+      { title: "Features — Resume AI" },
+      { name: "description", content: "Everything Resume AI does: ATS scoring, JD matching, AI rewrites, templates, and interview prep." },
+      { property: "og:title", content: "Features — Resume AI" },
       { property: "og:description", content: "Explore every feature of the AI-powered resume analyzer." },
     ],
   }),

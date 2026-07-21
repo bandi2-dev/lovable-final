@@ -100,7 +100,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-fuchsia-500 to-indigo-500 grid place-items-center">
             <Sparkles className="h-4 w-4" />
           </div>
-          <span className="font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>ResuMate</span>
+          <span className="font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Resume AI</span>
         </Link>
         <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-8 shadow-2xl">
           <h1 className="text-2xl font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{title}</h1>

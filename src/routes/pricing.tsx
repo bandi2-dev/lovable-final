@@ -6,9 +6,9 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "Pricing — ResuMate" },
+      { title: "Pricing — Resume AI" },
       { name: "description", content: "Free forever plan. Pro plan for unlimited AI rewrites and templates." },
-      { property: "og:title", content: "Pricing — ResuMate" },
+      { property: "og:title", content: "Pricing — Resume AI" },
     ],
   }),
 });

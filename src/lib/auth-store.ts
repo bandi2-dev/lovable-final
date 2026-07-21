@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { supabase, supabaseEnabled } from "@/integrations/supabase/client";
 
 /**
- * DEMO AUTH — for local academic use only.
- * Stores users + sessions in localStorage. Passwords are hashed with
- * SHA-256 + per-user salt via Web Crypto. Do NOT reuse for production.
+ * AUTH STORE
+ * Supports Supabase Auth (when enabled) with a local demo auth fallback.
+ * Local fallback uses localStorage and Web Crypto to hash passwords.
  */
 
 export interface StoredUser {
@@ -57,6 +58,35 @@ export const useAuthStore = create<AuthState>()(
       users: [],
       session: null,
       async signup({ name, email, password }) {
+        if (supabaseEnabled && supabase) {
+          const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                name: name.trim(),
+              },
+            },
+          });
+          if (error) throw error;
+          
+          if (data.user) {
+            // If email confirmation is enabled, session will be null.
+            if (!data.session) {
+              throw new Error("Signup successful! Please check your email for a confirmation link to verify your account.");
+            }
+            set({
+              session: {
+                userId: data.user.id,
+                email: data.user.email ?? email,
+                name: name.trim(),
+                issuedAt: Date.now(),
+              },
+            });
+          }
+          return;
+        }
+
         const normalized = email.trim().toLowerCase();
         if (get().users.some((u) => u.email === normalized)) {
           throw new Error("An account with this email already exists.");
@@ -82,6 +112,27 @@ export const useAuthStore = create<AuthState>()(
         });
       },
       async login({ email, password }) {
+        if (supabaseEnabled && supabase) {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+          if (error) throw error;
+          
+          if (data.user) {
+            const name = data.user.user_metadata?.name || data.user.email?.split("@")[0] || "User";
+            set({
+              session: {
+                userId: data.user.id,
+                email: data.user.email ?? email,
+                name,
+                issuedAt: Date.now(),
+              },
+            });
+          }
+          return;
+        }
+
         const normalized = email.trim().toLowerCase();
         const user = get().users.find((u) => u.email === normalized);
         if (!user) throw new Error("No account found for that email.");
@@ -97,6 +148,9 @@ export const useAuthStore = create<AuthState>()(
         });
       },
       logout() {
+        if (supabaseEnabled && supabase) {
+          supabase.auth.signOut();
+        }
         set({ session: null });
       },
     }),
@@ -115,7 +169,41 @@ export const useAuthStore = create<AuthState>()(
   ),
 );
 
+// Initialize Supabase Auth Listener if enabled to automatically sync auth state
+if (supabaseEnabled && supabase) {
+  // Check active session on startup
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (session?.user) {
+      const name = session.user.user_metadata?.name || session.user.email?.split("@")[0] || "User";
+      useAuthStore.setState({
+        session: {
+          userId: session.user.id,
+          email: session.user.email ?? "",
+          name,
+          issuedAt: Date.now(),
+        },
+      });
+    }
+  });
+
+  // Listen to auth changes
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (session?.user) {
+      const name = session.user.user_metadata?.name || session.user.email?.split("@")[0] || "User";
+      useAuthStore.setState({
+        session: {
+          userId: session.user.id,
+          email: session.user.email ?? "",
+          name,
+          issuedAt: Date.now(),
+        },
+      });
+    } else {
+      useAuthStore.setState({ session: null });
+    }
+  });
+}
+
 export function useHydratedAuth() {
-  // Zustand persist rehydrates on the client — components should mount-check.
   return useAuthStore;
 }

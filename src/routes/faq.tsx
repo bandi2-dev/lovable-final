@@ -7,9 +7,9 @@ export const Route = createFileRoute("/faq")({
   component: FaqPage,
   head: () => ({
     meta: [
-      { title: "FAQ — ResuMate" },
-      { name: "description", content: "Frequently asked questions about ResuMate." },
-      { property: "og:title", content: "FAQ — ResuMate" },
+      { title: "FAQ — Resume AI" },
+      { name: "description", content: "Frequently asked questions about Resume AI." },
+      { property: "og:title", content: "FAQ — Resume AI" },
     ],
   }),
 });

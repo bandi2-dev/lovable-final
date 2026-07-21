@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  FileText, Sparkles, Target, Zap, ArrowRight, CheckCircle2, Upload,
+  FileText, Briefcase, Target, Zap, ArrowRight, CheckCircle2, Upload,
   BarChart3, Star, Shield, Rocket, Brain, Wand2, ChevronDown,
 } from "lucide-react";
 import { useAuthStore } from "@/lib/auth-store";
@@ -69,9 +69,9 @@ function Nav({ session }: { session: boolean }) {
       <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-fuchsia-500 via-rose-500 to-indigo-500 grid place-items-center shadow-lg shadow-fuchsia-500/30">
-            <Sparkles className="h-4 w-4" />
+            <Briefcase className="h-4 w-4" />
           </div>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif" }}>ResuMate</span>
+          <span style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Resume AI</span>
         </Link>
         <nav className="hidden md:flex items-center gap-7 text-sm text-white/70">
           <Link to="/features" className="hover:text-white transition">Features</Link>
@@ -272,7 +272,7 @@ function Features() {
   const features = [
     { icon: BarChart3, title: "ATS Score", desc: "100-point breakdown across contact info, sections, length, formatting, impact & JD keywords." },
     { icon: Target, title: "JD Match", desc: "Paste any JD to see overlap %, matched skills and gaps in seconds." },
-    { icon: Sparkles, title: "AI Rewrites", desc: "Mistral AI rewrites bullets and delivers section-by-section coaching." },
+    { icon: Brain, title: "AI Rewrites", desc: "Mistral AI rewrites bullets and delivers section-by-section coaching." },
     { icon: FileText, title: "PDF & DOCX", desc: "Drag-and-drop. Text extraction runs in your browser — files never leave your machine." },
     { icon: Brain, title: "Smart Suggestions", desc: "Contextual, role-aware improvements — not generic templates." },
     { icon: Shield, title: "Private by design", desc: "Local auth. Optional Supabase for history. No tracking, ever." },
@@ -328,7 +328,7 @@ function InteractiveDemo() {
               Real-time keyword heatmap
             </h3>
             <p className="mt-4 text-white/60 leading-relaxed">
-              As you paste a job description, ResuMate highlights matches and gaps live.
+              As you paste a job description, Resume AI highlights matches and gaps live.
               Powered by our JD-match engine and Mistral's semantic reasoning.
             </p>
             <ul className="mt-6 space-y-3 text-sm text-white/70">
@@ -385,7 +385,7 @@ function HowItWorks() {
   const steps = [
     { icon: Upload, title: "Upload", desc: "Drop your PDF or DOCX resume, optionally paste the target JD." },
     { icon: Zap, title: "Analyze", desc: "We compute your ATS score and JD overlap instantly — offline, in your browser." },
-    { icon: Sparkles, title: "Improve", desc: "Mistral AI generates rewrites, feedback and prioritized action items." },
+    { icon: Brain, title: "Improve", desc: "Mistral AI generates rewrites, feedback and prioritized action items." },
   ];
   return (
     <section id="how" className="relative py-32 px-6 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent">
@@ -646,7 +646,7 @@ function Footer() {
   return (
     <footer className="border-t border-white/5 py-10 px-6 text-center text-xs text-white/40">
       <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
-        <div>ResuMate • Built with TanStack Start + Mistral AI + Supabase • MTech Major Project</div>
+        <div>Resume AI • Built with TanStack Start + Mistral AI + Supabase • MTech Major Project</div>
         <div className="flex gap-4">
           <Link to="/features" className="hover:text-white/70">Features</Link>
           <Link to="/pricing" className="hover:text-white/70">Pricing</Link>
