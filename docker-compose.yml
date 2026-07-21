@@ -1,0 +1,55 @@
+# Run all four environments side-by-side for demo purposes.
+#   docker compose up app-local
+#   docker compose up app-dev app-test app-prod
+services:
+  app-local:
+    build:
+      context: .
+      args:
+        APP_ENV: local
+        APP_VERSION: 0.1.0-local
+        ENABLE_AI: "true"
+    image: resume-analyzer:local
+    env_file: .env.local
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  app-dev:
+    build:
+      context: .
+      args:
+        APP_ENV: dev
+        APP_VERSION: 0.1.0-dev
+        ENABLE_AI: "true"
+    image: resume-analyzer:dev
+    env_file: .env.dev
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+
+  app-test:
+    build:
+      context: .
+      args:
+        APP_ENV: test
+        APP_VERSION: 0.1.0-test
+        ENABLE_AI: "false"
+    image: resume-analyzer:test
+    env_file: .env.test
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+
+  app-prod:
+    build:
+      context: .
+      args:
+        APP_ENV: prod
+        APP_VERSION: 0.1.0
+        ENABLE_AI: "true"
+    image: resume-analyzer:prod
+    env_file: .env.prod
+    ports:
+      - "8083:8080"
+    restart: unless-stopped

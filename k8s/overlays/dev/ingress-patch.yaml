@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: resume-analyzer
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - dev.resume-analyzer.example.com
+      secretName: resume-analyzer-dev-tls
+  rules:
+    - host: dev.resume-analyzer.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: resume-analyzer
+                port:
+                  number: 80

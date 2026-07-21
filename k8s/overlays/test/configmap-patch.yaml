@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resume-analyzer-config
+data:
+  VITE_APP_ENV: "test"
+  VITE_APP_VERSION: "0.1.0-test"
+  VITE_ENABLE_AI: "false"

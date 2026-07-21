@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: resume-analyzer-prod
+
+resources:
+  - ../../base
+
+images:
+  - name: resume-analyzer
+    newTag: "0.1.0"
+
+patches:
+  - path: configmap-patch.yaml
+  - path: deployment-patch.yaml
+  - path: hpa-patch.yaml
+  - path: ingress-patch.yaml
+  - path: namespace-patch.yaml
+    target:
+      kind: Namespace
+      name: resume-analyzer

@@ -1,0 +1,17 @@
+node_modules
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+.output
+.nitro
+.vinxi
+dist
+build
+.vscode
+.idea
+*.log
+.DS_Store
+README.md
+k8s

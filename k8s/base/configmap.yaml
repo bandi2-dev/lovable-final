@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resume-analyzer-config
+data:
+  VITE_APP_ENV: "prod"
+  VITE_APP_VERSION: "0.1.0"
+  VITE_API_BASE_URL: "/api"
+  VITE_MISTRAL_MODEL: "mistral-small-latest"
+  VITE_ENABLE_AI: "true"
