@@ -9,11 +9,18 @@ services:
         APP_ENV: local
         APP_VERSION: 0.1.0-local
         ENABLE_AI: "true"
+        SUPABASE_URL: ${VITE_SUPABASE_URL}
+        SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY}
     image: resume-analyzer:local
     env_file: .env.local
     ports:
       - "8080:8080"
     restart: unless-stopped
+    depends_on:
+      - supabase
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
 
   app-dev:
     build:
@@ -22,11 +29,18 @@ services:
         APP_ENV: dev
         APP_VERSION: 0.1.0-dev
         ENABLE_AI: "true"
+        SUPABASE_URL: ${VITE_SUPABASE_URL}
+        SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY}
     image: resume-analyzer:dev
     env_file: .env.dev
     ports:
       - "8081:8080"
     restart: unless-stopped
+    depends_on:
+      - supabase
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
 
   app-test:
     build:
@@ -35,11 +49,18 @@ services:
         APP_ENV: test
         APP_VERSION: 0.1.0-test
         ENABLE_AI: "false"
+        SUPABASE_URL: ${VITE_SUPABASE_URL}
+        SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY}
     image: resume-analyzer:test
     env_file: .env.test
     ports:
       - "8082:8080"
     restart: unless-stopped
+    depends_on:
+      - supabase
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
 
   app-prod:
     build:
@@ -48,8 +69,35 @@ services:
         APP_ENV: prod
         APP_VERSION: 0.1.0
         ENABLE_AI: "true"
+        SUPABASE_URL: ${VITE_SUPABASE_URL}
+        SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY}
     image: resume-analyzer:prod
     env_file: .env.prod
     ports:
       - "8083:8080"
     restart: unless-stopped
+    depends_on:
+      - supabase
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
+
+  # Supabase emulator for local development (optional)
+  supabase:
+    image: supabase/postgres:15.1.0.73
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_DB: ${DB_NAME:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - supabase_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  supabase_data:

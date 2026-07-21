@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.6
 
 # ---------- Build stage ----------
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 
 # Install deps (cached layer)
@@ -14,15 +14,25 @@ ARG APP_ENV=prod
 ARG APP_VERSION=0.1.0
 ARG MISTRAL_MODEL=mistral-small-latest
 ARG ENABLE_AI=true
+ARG SUPABASE_URL=""
+ARG SUPABASE_PUBLISHABLE_KEY=""
+
 ENV VITE_APP_ENV=$APP_ENV \
     VITE_APP_VERSION=$APP_VERSION \
     VITE_API_BASE_URL=/api \
     VITE_MISTRAL_MODEL=$MISTRAL_MODEL \
-    VITE_ENABLE_AI=$ENABLE_AI
+    VITE_ENABLE_AI=$ENABLE_AI \
+    VITE_SUPABASE_URL=$SUPABASE_URL \
+    VITE_SUPABASE_PUBLISHABLE_KEY=$SUPABASE_PUBLISHABLE_KEY
+
+RUN if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_PUBLISHABLE_KEY" ]; then \
+      echo "Error: Supabase configuration is missing!" && exit 1; \
+    fi
+
 RUN npm run build
 
 # ---------- Runtime stage ----------
-FROM node:20-alpine AS runtime
+FROM node:22-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production \
     PORT=8080 \

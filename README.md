@@ -58,7 +58,7 @@ Open http://localhost:8080 in your browser.
 | `VITE_APP_VERSION` | `0.1.0-local` | `0.1.0-dev` | `0.1.0-test` | `0.1.0` | Shown on `/api/version` |
 | `VITE_API_BASE_URL` | `/api` | `/api` | `/api` | `/api` | Same origin |
 | `VITE_MISTRAL_API_KEY` | *(your key)* | secret | *(unused)* | secret | Mistral API key |
-| `VITE_MISTRAL_MODEL` | `mistral-small-latest` | `mistral-small-latest` | *(unused)* | `mistral-small-latest` | Model id |
+| `VITE_MISTRAL_MODEL` | `devstral-2512` | `devstral-2512` | *(unused)* | `devstral-2512` | Model id |
 | `VITE_ENABLE_AI` | `true` | `true` | `false` | `true` | Falls back to deterministic mock when `false` |
 
 The **test** env uses baseline (mock) suggestions so CI runs are deterministic. All four envs share the same routes — behavior differences are gated in code, not URL structure.

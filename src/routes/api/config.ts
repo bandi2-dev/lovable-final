@@ -5,7 +5,7 @@ export const Route = createFileRoute("/api/config")({
     handlers: {
       GET: async () => {
         const appEnv = process.env.VITE_APP_ENV ?? "unknown";
-        const model = process.env.VITE_MISTRAL_MODEL ?? "mistral-small-latest";
+        const model = process.env.VITE_MISTRAL_MODEL ?? "devstral-2512";
         const enableAi = (process.env.VITE_ENABLE_AI ?? "true") !== "false";
         return Response.json({
           env: appEnv,

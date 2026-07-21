@@ -5,7 +5,7 @@ const EnvSchema = z.object({
   APP_VERSION: z.string().default("0.0.0"),
   API_BASE_URL: z.string().default("/api"),
   MISTRAL_API_KEY: z.string().default(""),
-  MISTRAL_MODEL: z.string().default("mistral-small-latest"),
+  MISTRAL_MODEL: z.string().default("devstral-2512"),
   ENABLE_AI: z.boolean().default(true),
 });
 

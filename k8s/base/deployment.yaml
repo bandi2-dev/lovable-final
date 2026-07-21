@@ -35,13 +35,21 @@ spec:
           envFrom:
             - configMapRef:
                 name: resume-analyzer-config
-            - secretRef:
-                name: resume-analyzer-secrets
           env:
             - name: PORT
               value: "8080"
             - name: HOST
               value: "0.0.0.0"
+            - name: MISTRAL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: resume-analyzer-secrets
+                  key: MISTRAL_API_KEY
+            - name: SUPABASE_SERVICE_ROLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: resume-analyzer-secrets
+                  key: SUPABASE_SERVICE_ROLE_KEY
           resources:
             requests:
               cpu: 100m
