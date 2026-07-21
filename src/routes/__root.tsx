@@ -98,13 +98,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      { rel: "apple-touch-icon", href: "/favicon.ico" },
-      { rel: "manifest", href: "/site.webmanifest" },
-      { name: "theme-color", content: "#0a0a0f" },
-      { name: "application-name", content: "Resume AI" },
-      { name: "apple-mobile-web-app-title", content: "Resume AI" },
-      { name: "msapplication-TileColor", content: "#0a0a0f" },
-      { name: "msapplication-config", content: "/browserconfig.xml" },
       {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",

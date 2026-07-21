@@ -57,35 +57,47 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       users: [],
       session: null,
-      async signup({ name, email, password }) {
-        if (supabaseEnabled && supabase) {
-          const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              data: {
-                name: name.trim(),
-              },
-            },
-          });
-          if (error) throw error;
-          
-          if (data.user) {
-            // If email confirmation is enabled, session will be null.
-            if (!data.session) {
-              throw new Error("Signup successful! Please check your email for a confirmation link to verify your account.");
-            }
-            set({
-              session: {
-                userId: data.user.id,
-                email: data.user.email ?? email,
-                name: name.trim(),
-                issuedAt: Date.now(),
-              },
-            });
-          }
-          return;
-        }
+       async signup({ name, email, password }) {
+         if (supabaseEnabled && supabase) {
+           console.log("Supabase signup attempt with:", { email });
+
+           const { data, error } = await supabase.auth.signUp({
+             email,
+             password,
+             options: {
+               data: {
+                 name: name.trim(),
+               },
+             },
+           });
+
+           console.log("Supabase signup response:", { data, error });
+
+           if (error) {
+             console.error("Supabase signup error:", error);
+             throw error;
+           }
+
+           if (data.user) {
+             console.log("User created successfully:", data.user.id);
+             // If email confirmation is enabled, session will be null.
+             if (!data.session) {
+               console.log("Email confirmation required for user:", data.user.id);
+               throw new Error("Signup successful! Please check your email for a confirmation link to verify your account.");
+             }
+             set({
+               session: {
+                 userId: data.user.id,
+                 email: data.user.email ?? email,
+                 name: name.trim(),
+                 issuedAt: Date.now(),
+               },
+             });
+           } else {
+             console.log("No user data returned from Supabase");
+           }
+           return;
+         }
 
         const normalized = email.trim().toLowerCase();
         if (get().users.some((u) => u.email === normalized)) {
